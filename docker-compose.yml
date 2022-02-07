@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  rabbitmq-flask:
+        # network_mode: IT420
+        hostname: rabbit-flask
+        container_name: rabbit-flask
+        image: 'rabbitmq:3.8-management-alpine'
+        ports:
+            - '15672:15672'
+            - '5672:5672'
+        volumes:
+          - rabbitmq_log:/var/log/rabbitmq
+          - rabbitmq_data:/var/lib/rabbitmq
+        healthcheck:
+          test: rabbitmq-diagnostics -q ping
+          interval: 10s
+          timeout: 30s
+          retries: 3
+volumes:
+  rabbitmq_log:
+  rabbitmq_data:
