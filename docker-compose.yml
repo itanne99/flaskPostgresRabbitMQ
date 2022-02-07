@@ -17,11 +17,19 @@ services:
       timeout: 30s
       retries: 3
 
+  postgres-flask:
+    container_name: postgres-flask
+    image: 'postgres'
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=rabbitmqDatabase
+      - POSTGRES_USER=rabbit
+      - POSTGRES_DB=rabbitTasks
+
   worker:
     container_name: rabbit-flask-worker
     build: worker
-    volumes:
-    - worker:/app
     environment:
       - PYTHONUNBUFFERED=1
     depends_on:
@@ -31,13 +39,9 @@ services:
   server:
     container_name: rabbit-flask-server
     build: server
-    volumes:
-    - server:/app
     ports:
     - 5000:5000
 
 volumes:
   rabbitmq_log:
   rabbitmq_data:
-  worker:
-  server:
