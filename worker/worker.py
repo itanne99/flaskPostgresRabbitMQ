@@ -1,9 +1,16 @@
 import pika
+
+'''
+Code Block: Wait for server to turn on
+Comment: Detached this since docker has a 'depend_on' method
+
 import time
 
 sleepTime = 10
 print(' [*] Sleeping for %i seconds.' % sleepTime)
 time.sleep(sleepTime)
+'''
+
 
 print(' [*] Connecting to server ...')
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit-flask'))
